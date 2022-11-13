@@ -26,7 +26,22 @@ public class MainActivity extends AppCompatActivity {
         fileCheck();
         etext = findViewById(R.id.editText);
         readFile();
+        etext.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                updateFile();
+            }
+        });
 
     }
 
@@ -38,6 +53,18 @@ public class MainActivity extends AppCompatActivity {
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
+        }
+    }
+    public void updateFile(){
+
+        String text = String.valueOf(etext.getText());
+        try {
+            FileOutputStream fos=openFileOutput("dades.txt",MODE_PRIVATE);
+            fos.write(text.getBytes());
+            fos.flush();
+            fos.close();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
