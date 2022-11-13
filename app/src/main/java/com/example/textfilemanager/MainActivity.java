@@ -23,9 +23,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        //First we need to check if dades.txt exists
         fileCheck();
-        etext = findViewById(R.id.editText);
+        etext = findViewById(R.id.editText); //Obtaining editText
+        //Reading the file
         readFile();
+        //Adding a ChangeListener to save the text to a file
         etext.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -45,6 +48,9 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    /*
+    * This function make the file if the file not exists
+     */
     public void fileCheck(){
         String data = Arrays.toString(this.getFilesDir().list());
         if (!data.contains("dades.txt")) {
@@ -55,6 +61,9 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
+    /*
+    * This function gets the editText data and writes it to the file
+     */
     public void updateFile(){
 
         String text = String.valueOf(etext.getText());
@@ -67,7 +76,9 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
-
+    /*
+    * This function reads the file dades.txt and append every line to editText
+     */
     public void readFile(){
         try {
             FileInputStream fis=openFileInput("dades.txt");
